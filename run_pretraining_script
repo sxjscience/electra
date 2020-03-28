@@ -1,0 +1,18 @@
+#!/bin/bash
+#run pretraining script
+
+    mpirun --allow-run-as-root --tag-output -np 16 -H localhost:8,172.31.59.241:8 \
+	   -bind-to none -map-by slot \
+	   -mca pml ob1 -mca btl ^openib -mca btl_tcp_if_exclude lo,docker0 \
+	   -x NCCL_SOCKET_IFNAME=^lo,docker0 \
+	   -x FI_PROVIDER="efa" -x FI_EFA_TX_MIN_CREDITS=64 \
+           -x NCCL_MIN_NRINGS=1 \
+           -x NCCL_DEBUG=VERSION \
+           -x HOROVOD_HIERARCHICAL_ALLREDUCE=0 \
+           -x HOROVOD_CYCLE_TIME=80 \
+           -x HOROVOD_NUM_NCCL_STREAMS=2 \
+           -x NCCL_TREE_THRESHOLD=15360000 \
+           python run_pretraining.py \
+	    --data-dir /home/ubuntu/electra_data/ \
+	    --model-name electra_small_owt \
+	    --hparams '{"train_batch_size":128}'
