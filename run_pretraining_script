@@ -5,4 +5,4 @@
       python run_pretraining.py \
 	    --data-dir /home/ubuntu/electra_data/ \
 	    --model-name electra_small_owt \
-	    --hparams '{"train_batch_size":128}'
+	    --hparams '{"train_batch_size":256}'
