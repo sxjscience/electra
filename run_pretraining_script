@@ -1,7 +1,7 @@
 #!/bin/bash
 #run pretraining script
 
-    horonodrun -np 16 -H localhost:8,172.31.59.241:8 \
+    horovodrun -np 16 -H localhost:8,172.31.59.241:8 \
       python run_pretraining.py \
 	    --data-dir /home/ubuntu/electra_data/ \
 	    --model-name electra_small_owt \
