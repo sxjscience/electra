@@ -2,7 +2,7 @@
 #run pretraining script
 
     horovodrun -np 8 -H localhost:8 \
-      python run_pretraining.py \
+      python run_finetuning.py \
 	    --data-dir /home/ubuntu/electra_data/ \
 	    --model-name electra_small_owt \
-	    --hparams '{"train_batch_size":128}'
+	    --hparams '{"model_size": "small", "task_names": ["cola"]}'
