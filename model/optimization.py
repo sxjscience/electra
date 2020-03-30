@@ -57,6 +57,8 @@ def create_optimizer(
   if use_tpu:
     optimizer = tf.tpu.CrossShardOptimizer(optimizer)
 
+  optimizer = hvd.DistributedOptimizer(optimizer)
+
   tvars = tf.trainable_variables()
   grads_and_vars = optimizer.compute_gradients(loss, tvars)
   grads = [grad for grad, var in grads_and_vars]
