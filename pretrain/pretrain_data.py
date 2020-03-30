@@ -47,7 +47,9 @@ def get_input_fn(config: configure_pretraining.PretrainingConfig, is_training, h
               fid = int(fname[23:pos_of-1])
               if fid % hvd.size() == hvd.rank():
                   input_files_local.append(input_file)
-
+      # for debug
+      print('input_files_local size:', len(input_files_local))
+      print('hvd.rank():', hvd.rank())
       if input_files_local:
           input_files = input_files_local
 
